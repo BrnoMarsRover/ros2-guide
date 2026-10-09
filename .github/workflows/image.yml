@@ -19,7 +19,7 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       # the image is ~5 GB, the runner's disk is tight
       - name: Free disk space
