@@ -1,19 +1,23 @@
 # 0 · Prostředí
 
 **Cíl:** mít terminál s Ubuntu 24.04, ROS 2 Jazzy a Gazebem Harmonic, ve kterém
-se otevře okno se želvou. Zabere to asi 20 minut, většinou se čeká na stahování.
+se otevře okno se želvou.
 
-> Celý tým i rover používají **Ubuntu 24.04 + ROS 2 Jazzy**. Nemusíš ale
-> přeinstalovávat počítač. Ubuntu poběží v kontejneru vedle tvého systému.
+## Co bys měl vědět hned o ROS2
 
+Robot operating system 2 (ROS2) je middleware, který poskytuje důležité funkce metody pro zjedodušení vývoje robotů.
+*Middleware je software, který aplikacím poskytuje služby nad rámec operačního systému*.
+Samotný ROS2 se vyvyjí v různých verzích, kde se přidávají nebo vylepšují funkce. Těmto verzím se přesněji říká *distribuce* (někdy *distro*). Je to podobné jako distribuce linuxu. ROS2 je úzce vázaný na Ubuntu. Každá distribuce ROS2 cílí na konkrétní verzi Ubuntu. Aktuálně s dlouhodobou podporou jsou: **ROS2 Humble pro Ubuntu 22**, **ROS2 Jazzy pro Ubuntu 24** a **ROS2 Lyrical pro Ubuntu 26**.
+AKtuálně (9.10.2026) jsme ve fázi přesunu z **Humble** na **Jazzy**. Je možné, že se brzy přesuneme rovnou na **Lyrical**.  
+
+Gazebo je název simulátoru, který funguje s ROS2. 
 ## Jak to funguje
 
-Používáme [distrobox](https://distrobox.it). Ten spustí Ubuntu jako kontejner
-(přes podman nebo docker), ale propojí ho s tvým počítačem:
+Pokud máš jinou distribuci linuxu než Ubuntu 24 nebo nedejbože Windows, tak nezoufej.
+Pro tento tutoriál použijeme [distrobox](https://distrobox.it). Ten spustí Ubuntu jako kontejner a propojí ho s tvým počítačem. (pokud nevíš, co je kontejner, tak si můžeš představit něco podobného virtuálnímu stroji. dokážeš v rámci svého operačního systému mít jiný operační systém)
 
-- **okna** (rviz2, Gazebo) se otevírají normálně na tvé ploše,
-- **grafická karta** je v kontejneru k dispozici, takže Gazebo není pomalé,
-- **tvoje domovská složka** je v kontejneru vidět na stejné cestě. Kód tedy
+**okna** se otevírají normálně na tvé ploše  
+**tvoje domovská složka** je v kontejneru vidět na stejné cestě. Kód tedy
   můžeš upravovat ve svém oblíbeném editoru na hostu a v kontejneru ho jen
   spouštět.
 
@@ -21,7 +25,7 @@ Kontejner má navíc vlastní složku pro konfiguraci (`~/.bmr-home`), takže ti
 nepřepíše `.bashrc` ani nic dalšího na hostu.
 
 ```
-tvůj systém (Arch, Fedora, …)
+tvůj systém
 ├── ~/ros2-guide, ~/bmr_system …   kód, vidíš ho z hostu i z kontejneru
 ├── ~/.bmr-home                     domovská složka kontejneru (.bashrc, .ros, …)
 └── kontejner „bmr“ = Ubuntu 24.04 + ROS 2 Jazzy + Gazebo Harmonic
@@ -31,16 +35,17 @@ tvůj systém (Arch, Fedora, …)
 
 ### 1. Nainstaluj distrobox a podman
 
+*Docker a podman jsou nástroje pro práci s kontejnery. Můžeš si vybrat jaký chceš, pro tento případ to je jedno*
+
 | Systém | Příkaz |
 |---|---|
 | Arch | `sudo pacman -S distrobox podman` |
 | Fedora | `sudo dnf install distrobox podman` (podman už většinou máš) |
-| Ubuntu, Debian | `sudo apt install distrobox podman` |
+| Ubuntu | `sudo apt install distrobox podman`(nebo [bez kontejneru](#ubuntu-2404)) |
+| Debian | `sudo apt install distrobox podman` |
 | jiný Linux | [distrobox.it](https://distrobox.it/#installation) |
 | Windows | viz [Windows](#windows-wsl2) níže |
 | macOS | nepodporujeme, Gazebo by v kontejneru běželo bez GPU. Ozvi se, najdeme řešení. |
-
-Místo podmanu stačí i docker, pokud ho už máš (a jsi ve skupině `docker`).
 
 ### 2. Stáhni tento repozitář
 
@@ -55,9 +60,8 @@ cd ~/ros2-guide
 container/create.sh
 ```
 
-Skript zkontroluje, že máš distrobox a podman, a stáhne image (jednou, asi 2–3 GB ke stažení, 7 GB na disku).
-Pak vytvoří kontejner `bmr`. Pokud máš grafiku NVIDIA, sám ji připojí.
-
+Skript zkontroluje, že máš distrobox a podman, a stáhne image kontejneru (jednou, asi 2–3 GB ke stažení, 7 GB na disku).
+Pak vytvoří kontejner `bmr`.
 ### 4. Vstup do kontejneru a zkontroluj ho
 
 ```
@@ -66,7 +70,7 @@ distrobox enter bmr
 ```
 
 Na pár sekund by se mělo otevřít okno se želvou a na konci by mělo být
-**All set.** Pokud ne, zkopíruj blok `summary` a pošli ho do týmového chatu.
+**All set.** Pokud ne, zkopíruj blok `summary` a pošli ho do týmového chatu nebo přímo Davidovi.
 
 V kontejneru začíná prompt `(bmr)`, třeba `(bmr)jan@notebook:~$`. Podle toho
 poznáš, kde zrovna jsi. Kontejner opustíš příkazem `exit`, znovu do něj vstoupíš přes
@@ -104,16 +108,14 @@ repozitáře stahuje přes SSH. Zda vše funguje, ukáže `check.sh` v řádcíc
 
 - `create.sh` stáhl image `ghcr.io/brnomarsrover/ros2-guide:jazzy` a vytvořil
   z něj kontejner. Co v image je, popisuje [`container/install.sh`](../../container/install.sh).
-- Každý terminál v kontejneru má automaticky načtený ROS (`/etc/bmr-ros.sh`).
+- Každý terminál v kontejneru má automaticky načtený ROS2 (`/etc/bmr-ros.sh`).
   Proč je to potřeba, uvidíme v kapitole 2.
-- Dva programy (`turtlesim_node` a `turtle_teleop_key`) jsou dva **nody**.
-  Jeden posílá příkazy, druhý je poslouchá. O tom je kapitola 1.
+- Máš dva programy (`turtlesim_node` a `turtle_teleop_key`) o nich je kapitola 1.
 
 ## Bezpečnost: ROS jen na tvém počítači
 
-ROS 2 standardně komunikuje s ostatními počítači v síti. Kdyby ses
-v dílně připojil k Wi-Fi roveru, tvoje `cmd_vel` by mohly opravdu
-pohnout Freyou. Proto má kontejner nastaveno:
+ROS 2 standardně komunikuje s ostatními počítači v síti. Kdyby ses např. připojil k Wi-Fi s roverem nebo jinými vývojáři, tvoje `cmd_vel` by mohly opravdu
+pohnout Freyou (neboj ještě to je ošetřené jinak). Kontejner má nastaveno:
 
 ```
 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST

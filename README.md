@@ -1,9 +1,7 @@
 # ROS 2 guide · Brno Mars Rover
 
 Krátký praktický úvod do ROS 2 pro nové členy
-[Brno Mars Rover](https://brnomarsrover.cz). Za pár večerů se dostaneš od
-nuly k tomu, že na svém počítači spustíš software roveru Freya a projedeš se
-s ní v simulaci.
+[Brno Mars Rover](https://brnomarsrover.cz). Vyzkoušíš si základy ROS2 a na konci si na svém počítači zprovozníš software roveru Freya a projedeš se v simulaci.
 
 Všechno běží v kontejneru s **Ubuntu 24.04, ROS 2 Jazzy a Gazebem Harmonic**,
 stejném prostředí, jaké používá rover. Ubuntu instalovat nemusíš.
@@ -40,7 +38,7 @@ Kapitoly bez odkazu se teprve píšou.
 
 ```
 container/      image (Dockerfile, install.sh), vytvoření a kontrola kontejneru
-docs/cs/        kapitoly česky (docs/en/ později)
+docs/cs/        kapitoly česky (docs/en/ snad později)
 .github/        GitHub Action: sestavení a publikace image
 ```
 
