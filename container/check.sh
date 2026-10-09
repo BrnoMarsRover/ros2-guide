@@ -32,11 +32,12 @@ if [ "$info_range" = LOCALHOST ]; then ok "ROS communicates only within this com
 else warn "ROS_AUTOMATIC_DISCOVERY_RANGE=$info_range: nodes on the network (the rover!) are visible"; fi
 
 # talker -> listener: discovery and messages work
-ros2 run demo_nodes_py talker > "$LOG/talker.log" 2>&1 &
+# setsid: "ros2 run" starts the node as a child, so we stop the whole process group
+setsid ros2 run demo_nodes_py talker > "$LOG/talker.log" 2>&1 &
 talker=$!
 if timeout 20 ros2 topic echo --once /chatter > "$LOG/echo.log" 2>&1; then ok "a node received a message from another node"
 else fail "no message from the talker node (see $LOG)"; fi
-kill $talker 2>/dev/null; wait $talker 2>/dev/null
+kill -- -$talker 2>/dev/null; wait $talker 2>/dev/null
 
 # ---------------------------------------------------------------- graphics
 if $HEADLESS; then :
@@ -51,12 +52,12 @@ $HEADLESS || case "$RENDERER" in
 esac
 
 if $GUI; then
-    ros2 run turtlesim turtlesim_node > "$LOG/turtlesim.log" 2>&1 &
+    setsid ros2 run turtlesim turtlesim_node > "$LOG/turtlesim.log" 2>&1 &
     turtle=$!
     sleep 6
     if kill -0 $turtle 2>/dev/null; then ok "turtlesim ran (did you see the window?)"
     else fail "turtlesim crashed (see $LOG/turtlesim.log)"; fi
-    kill $turtle 2>/dev/null; wait $turtle 2>/dev/null
+    kill -- -$turtle 2>/dev/null; wait $turtle 2>/dev/null
 fi
 
 # ---------------------------------------------------------------- Gazebo

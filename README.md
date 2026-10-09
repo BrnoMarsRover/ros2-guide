@@ -11,9 +11,10 @@ stejném prostředí, jaké používá rover. Ubuntu instalovat nemusíš.
 ```
 sudo pacman -S distrobox podman          # Arch;  Fedora: sudo dnf install distrobox podman
 git clone https://github.com/BrnoMarsRover/ros2-guide.git ~/ros2-guide
-~/ros2-guide/container/create.sh
+cd ~/ros2-guide
+container/create.sh
 distrobox enter bmr
-~/ros2-guide/container/check.sh --gui
+container/check.sh --gui
 ```
 
 Podrobně a s řešením problémů: [kapitola 0](docs/cs/00-prostredi.md).

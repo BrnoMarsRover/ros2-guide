@@ -65,14 +65,15 @@ Pak vytvoří kontejner `bmr`.
 ### 4. Vstup do kontejneru a zkontroluj ho
 
 ```
+cd ~/ros2-guide
 distrobox enter bmr
-~/ros2-guide/container/check.sh --gui
+container/check.sh --gui
 ```
 
 Na pár sekund by se mělo otevřít okno se želvou a na konci by mělo být
 **All set.** Pokud ne, zkopíruj blok `summary` a pošli ho do týmového chatu nebo přímo Davidovi.
 
-V kontejneru začíná prompt `(bmr)`, třeba `(bmr)jan@notebook:~$`. Podle toho
+V kontejneru začíná prompt `(bmr)`, třeba `(bmr)pepa@notebook:~$`. Podle toho
 poznáš, kde zrovna jsi. Kontejner opustíš příkazem `exit`, znovu do něj vstoupíš přes
 `distrobox enter bmr`.
 
