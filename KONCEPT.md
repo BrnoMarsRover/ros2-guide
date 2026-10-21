@@ -95,6 +95,10 @@ Každá kapitola má 30–60 minut a stejnou kostru:
 > **Cíl** → **Kroky** (příkazy ke zkopírování) → **Co se právě stalo** →
 > **Když to nefunguje** → **Úkol** (řešení v `solutions/`)
 
+Úkol je volitelný. Teoretické kapitoly (1) ho nemají, příkazy se zkoušejí průběžně při čtení.
+
+Text v Markdownu nezalamujeme na pevnou šířku: odstavec nebo odrážka je na jednom řádku, nový řádek nanejvýš na konci věty. Zalamování zvládne každý editor i prohlížeč sám.
+
 ## Osnova
 
 | # | Kapitola | Na konci umí |

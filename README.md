@@ -24,7 +24,7 @@ Podrobně a s řešením problémů: [kapitola 0](docs/cs/00-prostredi.md).
 | # | Kapitola | Na konci umíš |
 |---|---|---|
 | 0 | [Prostředí](docs/cs/00-prostredi.md) | spustit ROS 2 a turtlesim v kontejneru |
-| 1 | Co je ROS 2 | ovládat želvu z terminálu, číst graf nodů |
+| 1 | [Co je ROS 2](docs/cs/01-co-je-ros.md) | vysvětlit node, topic, service, action a parametr, ovládat želvu z terminálu |
 | 2 | Workspace a balíček | postavit vlastní balíček (`colcon build`) |
 | 3 | Publisher a subscriber | napsat dva nody, které spolu mluví (Python, ukázka v C++) |
 | 4 | Moje želva I | vlastní želva: `cmd_vel` → poloha, parametry |
