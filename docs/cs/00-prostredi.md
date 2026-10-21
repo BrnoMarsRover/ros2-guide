@@ -1,28 +1,25 @@
 # 0 · Prostředí
 
-**Cíl:** mít terminál s Ubuntu 24.04, ROS 2 Jazzy a Gazebem Harmonic, ve kterém
-se otevře okno se želvou.
+**Cíl:** mít terminál s Ubuntu 24.04, ROS 2 Jazzy a Gazebem Harmonic, ve kterém se otevře okno se želvou.
 
 ## Co bys měl vědět hned o ROS2
 
-Robot operating system 2 (ROS2) je middleware, který poskytuje důležité funkce metody pro zjedodušení vývoje robotů.
+Robot operating system 2 (ROS2) je middleware, který poskytuje důležité funkce a nástroje pro zjednodušení vývoje robotů.
 *Middleware je software, který aplikacím poskytuje služby nad rámec operačního systému*.
-Samotný ROS2 se vyvyjí v různých verzích, kde se přidávají nebo vylepšují funkce. Těmto verzím se přesněji říká *distribuce* (někdy *distro*). Je to podobné jako distribuce linuxu. ROS2 je úzce vázaný na Ubuntu. Každá distribuce ROS2 cílí na konkrétní verzi Ubuntu. Aktuálně s dlouhodobou podporou jsou: **ROS2 Humble pro Ubuntu 22**, **ROS2 Jazzy pro Ubuntu 24** a **ROS2 Lyrical pro Ubuntu 26**.
-AKtuálně (9.10.2026) jsme ve fázi přesunu z **Humble** na **Jazzy**. Je možné, že se brzy přesuneme rovnou na **Lyrical**.  
+Samotný ROS2 se vyvíjí v různých verzích, kde se přidávají nebo vylepšují funkce. Těmto verzím se přesněji říká *distribuce* (někdy *distro*). Je to podobné jako distribuce linuxu. ROS2 je úzce vázaný na Ubuntu. Každá distribuce ROS2 cílí na konkrétní verzi Ubuntu. Aktuálně s dlouhodobou podporou jsou: **ROS2 Humble pro Ubuntu 22**, **ROS2 Jazzy pro Ubuntu 24** a **ROS2 Lyrical pro Ubuntu 26**.
+Aktuálně (9.10.2026) jsme ve fázi přesunu z **Humble** na **Jazzy**. Je možné, že se brzy přesuneme rovnou na **Lyrical**.
 
-Gazebo je název simulátoru, který funguje s ROS2. 
+Gazebo je název simulátoru, který funguje s ROS2.
+
 ## Jak to funguje
 
 Pokud máš jinou distribuci linuxu než Ubuntu 24 nebo nedejbože Windows, tak nezoufej.
 Pro tento tutoriál použijeme [distrobox](https://distrobox.it). Ten spustí Ubuntu jako kontejner a propojí ho s tvým počítačem. (pokud nevíš, co je kontejner, tak si můžeš představit něco podobného virtuálnímu stroji. dokážeš v rámci svého operačního systému mít jiný operační systém)
 
 **okna** se otevírají normálně na tvé ploše  
-**tvoje domovská složka** je v kontejneru vidět na stejné cestě. Kód tedy
-  můžeš upravovat ve svém oblíbeném editoru na hostu a v kontejneru ho jen
-  spouštět.
+**tvoje domovská složka** je v kontejneru vidět na stejné cestě. Kód tedy můžeš upravovat ve svém oblíbeném editoru na hostu a v kontejneru ho jen spouštět.
 
-Kontejner má navíc vlastní složku pro konfiguraci (`~/.bmr-home`), takže ti
-nepřepíše `.bashrc` ani nic dalšího na hostu.
+Kontejner má navíc vlastní složku pro konfiguraci (`~/.bmr-home`), takže ti nepřepíše `.bashrc` ani nic dalšího na hostu.
 
 ```
 tvůj systém
@@ -41,7 +38,7 @@ tvůj systém
 |---|---|
 | Arch | `sudo pacman -S distrobox podman` |
 | Fedora | `sudo dnf install distrobox podman` (podman už většinou máš) |
-| Ubuntu | `sudo apt install distrobox podman`(nebo [bez kontejneru](#ubuntu-2404)) |
+| Ubuntu | `sudo apt install distrobox podman` (nebo [bez kontejneru](#ubuntu-2404)) |
 | Debian | `sudo apt install distrobox podman` |
 | jiný Linux | [distrobox.it](https://distrobox.it/#installation) |
 | Windows | viz [Windows](#windows-wsl2) níže |
@@ -70,12 +67,9 @@ distrobox enter bmr
 container/check.sh --gui
 ```
 
-Na pár sekund by se mělo otevřít okno se želvou a na konci by mělo být
-**All set.** Pokud ne, zkopíruj blok `summary` a pošli ho do týmového chatu nebo přímo Davidovi.
+Na pár sekund by se mělo otevřít okno se želvou a na konci by mělo být **All set.** Pokud ne, zkopíruj blok `summary` a pošli ho do týmového chatu nebo přímo Davidovi.
 
-V kontejneru začíná prompt `(bmr)`, třeba `(bmr)pepa@notebook:~$`. Podle toho
-poznáš, kde zrovna jsi. Kontejner opustíš příkazem `exit`, znovu do něj vstoupíš přes
-`distrobox enter bmr`.
+V kontejneru začíná prompt `(bmr)`, třeba `(bmr)pepa@notebook:~$`. Podle toho poznáš, kde zrovna jsi. Kontejner opustíš příkazem `exit`, znovu do něj vstoupíš přes `distrobox enter bmr`.
 
 ### 5. Želva
 
@@ -95,35 +89,28 @@ ros2 run turtlesim turtle_teleop_key
 
 Týmové repozitáře jsou soukromé. Budeš potřebovat:
 
-1. účet na GitHubu a pozvánku do organizace
-   [BrnoMarsRover](https://github.com/BrnoMarsRover). Napiš o ni do chatu,
+1. účet na GitHubu a pozvánku do organizace [BrnoMarsRover](https://github.com/BrnoMarsRover). Napiš o ni do chatu,
 2. SSH klíč. Pokud ho ještě nemáš, vytvoř ho **na hostu**:
-   `ssh-keygen -t ed25519`, a obsah `~/.ssh/id_ed25519.pub` vlož na
-   [github.com/settings/keys](https://github.com/settings/keys).
+   `ssh-keygen -t ed25519`, a obsah `~/.ssh/id_ed25519.pub` vlož na [github.com/settings/keys](https://github.com/settings/keys).
 
-Kontejner používá tvoje `~/.ssh` a git konfiguraci z hostu a týmové
-repozitáře stahuje přes SSH. Zda vše funguje, ukáže `check.sh` v řádcích
-`GitHub`.
+Kontejner používá tvoje `~/.ssh` a git konfiguraci z hostu a týmové repozitáře stahuje přes SSH. Zda vše funguje, ukáže `check.sh` v řádcích `GitHub`.
 
 ## Co se právě stalo
 
-- `create.sh` stáhl image `ghcr.io/brnomarsrover/ros2-guide:jazzy` a vytvořil
-  z něj kontejner. Co v image je, popisuje [`container/install.sh`](../../container/install.sh).
+- `create.sh` stáhl image `ghcr.io/brnomarsrover/ros2-guide:jazzy` a vytvořil z něj kontejner. Co v image je, popisuje [`container/install.sh`](../../container/install.sh).
 - Každý terminál v kontejneru má automaticky načtený ROS2 (`/etc/bmr-ros.sh`).
   Proč je to potřeba, uvidíme v kapitole 2.
-- Máš dva programy (`turtlesim_node` a `turtle_teleop_key`) o nich je kapitola 1.
+- Máš dva programy (`turtlesim_node` a `turtle_teleop_key`), o nich je kapitola 1.
 
 ## Bezpečnost: ROS jen na tvém počítači
 
-ROS 2 standardně komunikuje s ostatními počítači v síti. Kdyby ses např. připojil k Wi-Fi s roverem nebo jinými vývojáři, tvoje `cmd_vel` by mohly opravdu
-pohnout Freyou (neboj ještě to je ošetřené jinak). Kontejner má nastaveno:
+ROS 2 standardně komunikuje s ostatními počítači v síti. Kdyby ses např. připojil k Wi-Fi s roverem nebo jinými vývojáři, tvoje `cmd_vel` by mohly opravdu pohnout Freyou (neboj, to je ještě ošetřené jinak). Kontejner má nastaveno:
 
 ```
 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
 ```
 
-ROS tak vidí jen nody na tvém počítači. Jak se připojit k roveru, ukáže
-kapitola 8.
+ROS tak vidí jen nody na tvém počítači. Jak se připojit k roveru, ukáže kapitola 8.
 
 ## Když to nefunguje
 
@@ -149,16 +136,13 @@ sudo ~/ros2-guide/container/install.sh
 
 ### Windows (WSL2)
 
-*Zatím neotestováno.* V PowerShellu: `wsl --install -d Ubuntu-24.04`. Pak
-v Ubuntu terminálu naklonuj repozitář a spusť `sudo ~/ros2-guide/container/install.sh`.
+*Zatím neotestováno.* V PowerShellu: `wsl --install -d Ubuntu-24.04`. Pak v Ubuntu terminálu naklonuj repozitář a spusť `sudo ~/ros2-guide/container/install.sh`.
 Okna fungují přes WSLg na Windows 11 a aktuálních Windows 10.
 
 ## Editor
 
 Kód leží ve tvé domovské složce, takže můžeš použít jakýkoli editor na hostu.
-Spouštíš ho ale v kontejneru. Pokud chceš ve VS Code napovídání pro ROS
-(`rclpy`), nainstaluj si rozšíření **Dev Containers** a použij
-*Attach to Running Container…* → `bmr`.
+Spouštíš ho ale v kontejneru. Pokud chceš ve VS Code napovídání pro ROS (`rclpy`), nainstaluj si rozšíření **Dev Containers** a použij *Attach to Running Container…* → `bmr`.
 
 ---
 
