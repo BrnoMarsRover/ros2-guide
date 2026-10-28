@@ -105,13 +105,13 @@ Text v Markdownu nezalamujeme na pevnou šířku: odstavec nebo odrážka je na 
 |---|---|---|
 | 0 | **Prostředí**: distrobox / WSL2, první spuštění, VS Code | `ros2 run turtlesim turtlesim_node` otevře okno |
 | 1 | **Co je ROS 2** + turtlesim z CLI: node, topic, message, service, `rqt_graph` | ovládat želvu z terminálu, číst graf |
-| 2 | **Workspace a balíček**: `colcon build`, `source`, underlay/overlay | vysvětlit, co dělá `env.sh` roveru |
+| 2 | **Workspace a balíček**: workspace, balíček `my_turtle`, závislosti, `colcon build`, `source`, underlay/overlay | spustit vlastní balíček přes `ros2 run` |
 | 3 | **Publisher a subscriber** (Python, jednou i C++) | dva vlastní nody spolu mluví |
 | 4 | **Moje želva I**: `cmd_vel` → pozice, timer, parametry, YAML | želva se hýbe z teleopu |
 | 5 | **Moje želva II**: service, launch file, namespaces, remapping | dvě želvy z jednoho launch |
 | 6 | **Nástroje**: TF, rviz2, `ros2 bag`, watchdog | želva v rviz2, nahraný a přehraný bag |
 | 7 | **Gazebo** *(volitelné, pro simulační tým)*: svět, robot, `ros_gz_bridge`, `use_sim_time` | ovládat robota v Gazebu stejným teleopem |
-| 8 | **Náš rover**: `setup.sh`, komponenty bmr/erc/urc, spuštění simulace (tmux, tmuxinator), cesta `cmd_vel` → `kinematics`, konvence, workflow (větve `<jmeno>/<tema>`, PR, CI) | jezdit s Freyou, najít a přečíst README libovolného repa |
+| 8 | **Náš rover**: `setup.sh`, `env.sh` (vrstvy workspace, `cb`, `bmr_build`), komponenty bmr/erc/urc, spuštění simulace (tmux, tmuxinator), cesta `cmd_vel` → `kinematics`, konvence, workflow (větve `<jmeno>/<tema>`, PR, CI) | jezdit s Freyou, najít a přečíst README libovolného repa |
 | + | **Tahák**: příkazy ROS 2, týmové aliasy (`rtl`, `cb`, `bmr_build`…), tmux | |
 
 Jádro jsou kapitoly 0–6, 7 je pro simulační tým a 8 je napojení na rover.
@@ -131,11 +131,3 @@ ros2-guide/
 ├── solutions/                 řešení úkolů po kapitolách
 └── .github/workflows/         build image + kontrola, že se cvičení i řešení zbuildí
 ```
-
-## Otevřené otázky
-
-- ~~Samostatné repo, nebo `docs/` v `bmr-system`?~~ Samostatné repo
-  `BrnoMarsRover/ros2-guide`, image `ghcr.io/brnomarsrover/ros2-guide:jazzy`.
-- Kapitola 8 závisí na stavu `bmr-system`, který se právě předělává. Psát ji
-  až nakonec.
-- Testovat na Fedoře (podman) a na Archu, ideálně na NVIDII i na AMD/Intel.

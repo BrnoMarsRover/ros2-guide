@@ -25,7 +25,7 @@ Podrobně a s řešením problémů: [kapitola 0](docs/cs/00-prostredi.md).
 |---|---|---|
 | 0 | [Prostředí](docs/cs/00-prostredi.md) | spustit ROS 2 a turtlesim v kontejneru |
 | 1 | [Co je ROS 2](docs/cs/01-co-je-ros.md) | vysvětlit node, topic, service, action a parametr, ovládat želvu z terminálu |
-| 2 | Workspace a balíček | postavit vlastní balíček (`colcon build`) |
+| 2 | [Workspace a balíček](docs/cs/02-workspace.md) | postavit vlastní balíček (`colcon build`) |
 | 3 | Publisher a subscriber | napsat dva nody, které spolu mluví (Python, ukázka v C++) |
 | 4 | Moje želva I | vlastní želva: `cmd_vel` → poloha, parametry |
 | 5 | Moje želva II | service, launch file, dvě želvy v namespacech |
@@ -40,6 +40,7 @@ Kapitoly bez odkazu se teprve píšou.
 ```
 container/      image (Dockerfile, install.sh), vytvoření a kontrola kontejneru
 docs/cs/        kapitoly česky (docs/en/ snad později)
+ws/             workspace pro cvičení
 .github/        GitHub Action: sestavení a publikace image
 ```
 
